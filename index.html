@@ -19,8 +19,8 @@
                     <a href="#" class="nav-link active">İmtahanlar</a>
                 </nav>
                 <div class="header-actions">
-                    <button class="btn-secondary">DAXİL OL</button>
-                    <button class="btn-primary">QEYDİYYAT</button>
+                    <button class="btn-secondary" id="loginBtn">DAXİL OL</button>
+                    <button class="btn-primary" id="registerBtn">QEYDİYYAT</button>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
             <span class="close-modal" onclick="closeAuthModal()">&times;</span>
             <h2 id="authModalTitle">Daxil Ol</h2>
             <div class="auth-form">
-                <input type="text" id="authUsername" placeholder="İstifadəçi adı" class="auth-input">
+                <input type="text" id="authUsername" placeholder="İstifadəçi adı" class="auth-input" onkeypress="if(event.key === 'Enter') document.getElementById('authSubmitBtn').click()">
                 <button id="authSubmitBtn" class="btn-primary" style="width: 100%; margin-top: 15px;">DAXİL OL</button>
             </div>
         </div>

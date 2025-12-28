@@ -67,15 +67,31 @@ function updateAuthUI() {
     const authButtons = document.querySelector('.header-actions');
     if (currentUser) {
         authButtons.innerHTML = `
-            <button class="btn-secondary" onclick="openBetHistory()" style="margin-right: 10px;">KUPONLAR</button>
+            <button class="btn-secondary btn-bet-history" style="margin-right: 10px;">KUPONLAR</button>
             <span style="color: #fff; margin-right: 15px;">👤 ${currentUser}</span>
-            <button class="btn-secondary" onclick="logout()">ÇIXIŞ</button>
+            <button class="btn-secondary btn-logout">ÇIXIŞ</button>
         `;
+        
+        // Add event listeners to the new buttons
+        setTimeout(() => {
+            const historyBtn = document.querySelector('.btn-bet-history');
+            const logoutBtn = document.querySelector('.btn-logout');
+            if (historyBtn) historyBtn.addEventListener('click', openBetHistory);
+            if (logoutBtn) logoutBtn.addEventListener('click', logout);
+        }, 0);
     } else {
         authButtons.innerHTML = `
-            <button class="btn-secondary" onclick="openLoginModal()">DAXİL OL</button>
-            <button class="btn-primary" onclick="openRegisterModal()">QEYDİYYAT</button>
+            <button class="btn-secondary" id="loginBtn">DAXİL OL</button>
+            <button class="btn-primary" id="registerBtn">QEYDİYYAT</button>
         `;
+        
+        // Add event listeners to the new buttons
+        setTimeout(() => {
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            if (loginBtn) loginBtn.addEventListener('click', openLoginModal);
+            if (registerBtn) registerBtn.addEventListener('click', openRegisterModal);
+        }, 0);
     }
 }
 
@@ -104,30 +120,48 @@ function openLoginModal() {
     const modal = document.getElementById('authModal');
     const title = document.getElementById('authModalTitle');
     const btn = document.getElementById('authSubmitBtn');
+    const input = document.getElementById('authUsername');
     
     title.textContent = 'Daxil Ol';
     btn.textContent = 'DAXİL OL';
-    btn.onclick = () => {
+    input.value = '';
+    
+    // Remove old event listeners by cloning
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    
+    // Add new event listener
+    document.getElementById('authSubmitBtn').addEventListener('click', () => {
         const username = document.getElementById('authUsername').value;
         login(username);
-    };
+    });
     
     modal.style.display = 'flex';
+    setTimeout(() => input.focus(), 100);
 }
 
 function openRegisterModal() {
     const modal = document.getElementById('authModal');
     const title = document.getElementById('authModalTitle');
     const btn = document.getElementById('authSubmitBtn');
+    const input = document.getElementById('authUsername');
     
     title.textContent = 'Qeydiyyat';
     btn.textContent = 'QEYDİYYAT';
-    btn.onclick = () => {
+    input.value = '';
+    
+    // Remove old event listeners by cloning
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    
+    // Add new event listener
+    document.getElementById('authSubmitBtn').addEventListener('click', () => {
         const username = document.getElementById('authUsername').value;
         register(username);
-    };
+    });
     
     modal.style.display = 'flex';
+    setTimeout(() => input.focus(), 100);
 }
 
 function closeAuthModal() {
@@ -228,6 +262,33 @@ function initApp() {
     initAuth();
     renderExamCards();
     setupEventListeners();
+    setupAuthModal();
+    setupInitialAuthButtons();
+}
+
+// Setup initial auth buttons (on page load)
+function setupInitialAuthButtons() {
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    
+    if (loginBtn) {
+        loginBtn.addEventListener('click', openLoginModal);
+    }
+    if (registerBtn) {
+        registerBtn.addEventListener('click', openRegisterModal);
+    }
+}
+
+// Setup auth modal event listeners
+function setupAuthModal() {
+    const authSubmitBtn = document.getElementById('authSubmitBtn');
+    const authUsername = document.getElementById('authUsername');
+    
+    // Remove any existing listeners
+    const newBtn = authSubmitBtn.cloneNode(true);
+    authSubmitBtn.parentNode.replaceChild(newBtn, authSubmitBtn);
+    
+    // This will be set dynamically in openLoginModal/openRegisterModal
 }
 
 // ================================
