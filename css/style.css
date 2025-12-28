@@ -1,0 +1,931 @@
+/* ================================
+   RESET & BASE STYLES
+   ================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Misli-inspired Color Palette */
+    --primary-color: #ff4500;
+    --primary-dark: #cc3700;
+    --secondary-color: #00a651;
+    --background-dark: #1a1a1a;
+    --background-darker: #0f0f0f;
+    --card-bg: #232323;
+    --card-border: #333333;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --text-muted: #666666;
+    --odds-bg: #2a2a2a;
+    --odds-hover: #3a3a3a;
+    --success: #00c851;
+    --warning: #ffbb33;
+    --danger: #ff4444;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ================================
+   WARNING BANNER
+   ================================ */
+.fun-warning {
+    background: linear-gradient(135deg, #ffbb33, #ff4444);
+    color: #000;
+    text-align: center;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 1px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* ================================
+   HEADER
+   ================================ */
+.header {
+    background: var(--background-darker);
+    border-bottom: 2px solid var(--primary-color);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.logo h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--text-primary);
+    letter-spacing: -1px;
+}
+
+.logo h1 span {
+    color: var(--primary-color);
+}
+
+.logo-subtitle {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: -5px;
+}
+
+.nav {
+    display: flex;
+    gap: 25px;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.3s;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--card-border);
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* ================================
+   MAIN CONTENT LAYOUT
+   ================================ */
+.main-content {
+    padding: 30px 0;
+    min-height: calc(100vh - 200px);
+}
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 25px;
+}
+
+.section-header {
+    margin-bottom: 25px;
+}
+
+.section-header h2 {
+    font-size: 22px;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.exam-date {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+/* ================================
+   EXAM CARDS (MATCH CARDS)
+   ================================ */
+.exam-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.exam-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.exam-header {
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, var(--card-bg), #2a2a2a);
+}
+
+.exam-info h3 {
+    font-size: 18px;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.exam-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.exam-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.expand-icon {
+    font-size: 24px;
+    color: var(--text-secondary);
+    transition: transform 0.3s;
+}
+
+.exam-card.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+.exam-options {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+.exam-card.expanded .exam-options {
+    max-height: 10000px;
+}
+
+.options-content {
+    padding: 20px;
+    background: var(--background-darker);
+}
+
+/* ================================
+   BETTING OPTIONS
+   ================================ */
+.option-group {
+    margin-bottom: 25px;
+}
+
+.option-group h4 {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+.odd-button {
+    background: var(--odds-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.odd-button:hover {
+    background: var(--odds-hover);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.odd-button.selected {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.odd-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.odd-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+/* Student specific odds */
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+}
+
+.student-odd {
+    background: var(--odds-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.student-odd:hover {
+    background: var(--odds-hover);
+    border-color: var(--primary-color);
+}
+
+.student-odd.selected {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.student-name {
+    font-size: 13px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.student-odds {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.student-odds span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.student-odds span:hover {
+    background: var(--odds-hover);
+}
+
+.student-odds span.selected {
+    background: var(--primary-color);
+}
+
+.student-odds strong {
+    font-size: 14px;
+    color: var(--warning);
+    font-weight: bold;
+}
+
+/* Over/Under Grid */
+.overunder-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+}
+
+.overunder-button {
+    background: var(--odds-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.overunder-button:hover {
+    background: var(--odds-hover);
+    border-color: var(--primary-color);
+}
+
+.overunder-button.selected {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.overunder-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 3px;
+}
+
+.overunder-value {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+/* ================================
+   BETSLIP PANEL
+   ================================ */
+.betslip {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    position: sticky;
+    top: 90px;
+    max-height: calc(100vh - 110px);
+    display: flex;
+    flex-direction: column;
+}
+
+.betslip-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.betslip-header h3 {
+    font-size: 18px;
+    color: var(--text-primary);
+}
+
+.clear-betslip {
+    background: transparent;
+    border: 1px solid var(--card-border);
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.clear-betslip:hover {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+.betslip-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.empty-betslip {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+}
+
+.empty-betslip svg {
+    opacity: 0.3;
+    margin-bottom: 15px;
+    color: var(--text-muted);
+}
+
+.empty-betslip p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.empty-betslip span {
+    font-size: 12px;
+}
+
+/* Betslip Items */
+.betslip-item {
+    background: var(--odds-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.betslip-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.betslip-item-title {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.betslip-item-selection {
+    font-size: 15px;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.betslip-item-odds {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--warning);
+}
+
+.remove-bet {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.remove-bet:hover {
+    color: var(--danger);
+}
+
+/* Betslip Footer */
+.betslip-footer {
+    border-top: 1px solid var(--card-border);
+    padding: 20px;
+}
+
+.betslip-summary {
+    margin-bottom: 20px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.total-odds {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--warning);
+}
+
+.bet-amount {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.bet-amount label {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.bet-amount input {
+    flex: 1;
+    background: var(--odds-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.bet-amount input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.currency {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.potential-win {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: linear-gradient(135deg, #1a4d2e, #1a3d2e);
+    border-radius: 6px;
+    margin-top: 15px;
+}
+
+.win-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--success);
+}
+
+.btn-place-bet {
+    width: 100%;
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    margin-top: 15px;
+}
+
+.btn-place-bet:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-place-bet:active {
+    transform: translateY(0);
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+.footer {
+    background: var(--background-darker);
+    border-top: 1px solid var(--card-border);
+    padding: 30px 0;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.footer p {
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+@media (max-width: 1200px) {
+    .content-wrapper {
+        grid-template-columns: 1fr 350px;
+    }
+}
+
+@media (max-width: 992px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .betslip {
+        position: relative;
+        top: 0;
+        max-height: none;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .header-content {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .option-grid,
+    .students-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .overunder-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 24px;
+    }
+
+    .option-grid,
+    .students-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .overunder-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ================================
+   SCROLLBAR STYLING
+   ================================ */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-darker);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--card-border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* ================================
+   AUTH MODAL
+   ================================ */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: var(--primary-color);
+}
+
+.modal-content h2 {
+    color: var(--text-primary);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-input {
+    background: var(--odds-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.auth-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.auth-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ================================
+   BET HISTORY MODAL
+   ================================ */
+.bet-history-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.empty-history {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+}
+
+.empty-history p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.empty-history span {
+    font-size: 13px;
+}
+
+.history-item {
+    background: var(--odds-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.history-header strong {
+    color: var(--text-primary);
+    font-size: 16px;
+}
+
+.history-date {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.history-details {
+    margin-bottom: 15px;
+}
+
+.history-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.odds-value {
+    color: var(--warning);
+    font-weight: bold;
+}
+
+.win-value {
+    color: var(--success);
+    font-weight: bold;
+}
+
+.history-bets {
+    background: var(--background-darker);
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.history-bet-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.bet-details-column {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+}
+
+.bet-exam {
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.bet-category {
+    color: var(--text-muted);
+    font-size: 10px;
+    font-style: italic;
+}
+
+.bet-selection {
+    color: var(--text-primary);
+    flex: 1;
+    text-align: center;
+    font-weight: 500;
+}
+
+.bet-odds {
+    color: var(--warning);
+    font-weight: bold;
+    text-align: right;
+    min-width: 50px;
+}

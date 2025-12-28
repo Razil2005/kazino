@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam.az - İmtahan Mərc Oyunu</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>exam.<span>az</span></h1>
+                    <p class="logo-subtitle">İmtahan Mərc Platforması</p>
+                </div>
+                <nav class="nav">
+                    <a href="#" class="nav-link active">İmtahanlar</a>
+                </nav>
+                <div class="header-actions">
+                    <button class="btn-secondary">DAXİL OL</button>
+                    <button class="btn-primary">QEYDİYYAT</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- LEFT SIDE - MATCHES/EXAMS -->
+                <div class="matches-section">
+                    <div class="section-header">
+                        <h2>ƏN ÇOX OYNANAN</h2>
+                        <p class="exam-date">İmtahan Nəticələri</p>
+                    </div>
+
+                    <!-- EXAM CARDS CONTAINER -->
+                    <div id="examCardsContainer"></div>
+                </div>
+
+                <!-- RIGHT SIDE - BET SLIP -->
+                <div class="betslip-section">
+                    <div class="betslip">
+                        <div class="betslip-header">
+                            <h3>Kupon</h3>
+                            <button class="clear-betslip" id="clearBetslip">Təmizlə</button>
+                        </div>
+                        
+                        <div class="betslip-content" id="betslipContent">
+                            <div class="empty-betslip">
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 11H15M9 15H15M21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <p>Kupon boşdur</p>
+                                <span>Mərc seçimi üçün əmsal seçin</span>
+                            </div>
+                        </div>
+
+                        <div class="betslip-footer" id="betslipFooter" style="display: none;">
+                            <div class="betslip-summary">
+                                <div class="summary-row">
+                                    <span>Seçim:</span>
+                                    <span id="betCount">0</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Ümumi Əmsal:</span>
+                                    <span class="total-odds" id="totalOdds">1.00</span>
+                                </div>
+                                <div class="bet-amount">
+                                    <label>Məbləğ:</label>
+                                    <input type="number" id="betAmount" value="10" min="1" max="1000">
+                                    <span class="currency">AZN</span>
+                                </div>
+                                <div class="potential-win">
+                                    <span>Mümkün Qazanc:</span>
+                                    <span class="win-amount" id="potentialWin">0.00 AZN</span>
+                                </div>
+                            </div>
+                            <button class="btn-place-bet" id="placeBetBtn">
+                                MƏRC ET
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Exam.az - İmtahan Mərc Platforması</p>
+            <p>Razil tərəfindən hazırlanmışdır 🎓</p>
+        </div>
+    </footer>
+
+    <!-- AUTH MODAL -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+            <h2 id="authModalTitle">Daxil Ol</h2>
+            <div class="auth-form">
+                <input type="text" id="authUsername" placeholder="İstifadəçi adı" class="auth-input">
+                <button id="authSubmitBtn" class="btn-primary" style="width: 100%; margin-top: 15px;">DAXİL OL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BET HISTORY MODAL -->
+    <div id="betHistoryModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <span class="close-modal" onclick="closeBetHistory()">&times;</span>
+            <h2>Oynadığım Kuponlar</h2>
+            <div id="betHistoryContainer" class="bet-history-container"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
